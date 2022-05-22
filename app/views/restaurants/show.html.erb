@@ -9,11 +9,27 @@
   <li>
     <strong>Category: </strong><%= @restaurant.category %>
   </li>
+    <li>
+    <strong>Reviews: </strong>
+      <ul>
+        <% @restaurant.reviews.each do | review | %>
+          <li>
+            <%= review.content %>
+            <%= "⭐" * review.rating %>
+            <%= link_to "Delete", review_path(review), method: :delete,
+            data: { confirm: "Are you sure?" }   %>
+          </li>
+        <% end %>
+      </ul>
+  </li>
 </ul>
 
-<%= link_to "Edit", edit_restaurant_path(@restaurant) %>
+
+<%= link_to "Edit Restaurant", edit_restaurant_path(@restaurant) %>
 <br>
-<%= link_to "Delete", restaurant_path(@restaurant), method: :delete,
+<%= link_to "Delete Restaurant", restaurant_path(@restaurant), method: :delete,
             data: { confirm: "Are you sure?" }  %>
 <br>
-<%= link_to "Back", restaurants_path %>
+<%= link_to "Create Review", new_restaurant_review_path(@restaurant) %>
+<br>
+<%= link_to "Home", restaurants_path %>
